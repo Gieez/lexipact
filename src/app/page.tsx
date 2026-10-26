@@ -12,16 +12,13 @@ import {
   PRESET_TEMPLATES,
   LegalPactTemplate,
   AgreementMilestone,
-  LEXIPACT_CONTRACT_ADDRESS,
-  baseSepolia,
 } from "@/lib/constants";
 import {
   simulateDeterministicSignature,
   computePactDigest,
-  shortenAddress,
 } from "@/lib/web3";
 import { AuditResult } from "@/lib/ai-watcher";
-import { Plus, Shield, CheckCircle2, ChevronRight, Scale, ExternalLink } from "lucide-react";
+import { Plus, Scale, ExternalLink } from "lucide-react";
 
 export default function Home() {
   const [pacts, setPacts] = useState<LegalPactTemplate[]>(PRESET_TEMPLATES);
@@ -209,31 +206,31 @@ export default function Home() {
       />
 
       {/* Main Container */}
-      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-8">
+      <main className="flex-1 max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8 w-full space-y-5 sm:space-y-8">
         {/* Pact Switcher & Forge Action Banner */}
-        <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl border border-lexi-border bg-lexi-card shadow-docket">
-          <div className="flex items-center gap-3 overflow-x-auto py-1">
-            <span className="text-xs font-mono text-lexi-parchmentMuted uppercase whitespace-nowrap">
-              Active Docket:
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 sm:p-4 rounded-xl border border-lexi-border bg-lexi-card shadow-docket">
+          <div className="flex items-center gap-2 sm:gap-3 overflow-x-auto py-1 no-scrollbar">
+            <span className="text-[11px] sm:text-xs font-mono text-lexi-parchmentMuted uppercase whitespace-nowrap">
+              Docket:
             </span>
             {pacts.map((p) => (
               <button
                 key={p.id}
                 onClick={() => handleSelectPact(p)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all border ${
+                className={`px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all border shrink-0 ${
                   selectedPactId === p.id
                     ? "bg-lexi-gold text-lexi-bg font-bold border-lexi-gold shadow-sm"
                     : "bg-lexi-bg border-lexi-border text-lexi-parchmentMuted hover:text-white hover:border-lexi-borderStrong"
                 }`}
               >
-                {p.id}: {p.title.slice(0, 24)}...
+                {p.id}: {p.title.slice(0, 20)}...
               </button>
             ))}
           </div>
 
           <button
             onClick={() => setIsCreateModalOpen(true)}
-            className="px-3.5 py-1.5 rounded-lg border border-lexi-gold/50 bg-lexi-goldMuted hover:bg-lexi-gold/20 text-lexi-goldLight text-xs font-mono font-bold uppercase transition-all flex items-center gap-1.5"
+            className="w-full sm:w-auto px-3.5 py-2 rounded-lg border border-lexi-gold/50 bg-lexi-goldMuted hover:bg-lexi-gold/20 text-lexi-goldLight text-xs font-mono font-bold uppercase transition-all flex items-center justify-center gap-1.5 min-h-[40px]"
           >
             <Plus className="w-3.5 h-3.5" />
             <span>Forge Custom Pact</span>
@@ -251,7 +248,7 @@ export default function Home() {
         />
 
         {/* Tab Content Display */}
-        <div className="pt-2">
+        <div className="pt-1 sm:pt-2">
           {activeTab === "agreement" && (
             <AgreementTab
               pact={currentPact}
@@ -303,13 +300,13 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-lexi-border bg-lexi-card/60 py-6 text-xs font-mono text-lexi-parchmentMuted no-print">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <Scale className="w-4 h-4 text-lexi-gold" />
+      <footer className="border-t border-lexi-border bg-lexi-card/60 py-5 sm:py-6 text-[11px] sm:text-xs font-mono text-lexi-parchmentMuted no-print mt-auto">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+            <Scale className="w-4 h-4 text-lexi-gold shrink-0" />
             <span className="font-serif font-bold text-white">LexiPact</span>
             <span>&bull;</span>
-            <span>Built for Legal-Hack-2026 DoraHacks Hackathon</span>
+            <span>Legal-Hack-2026 DoraHacks Hackathon</span>
           </div>
 
           <div className="flex items-center gap-4">

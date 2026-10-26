@@ -11,11 +11,8 @@ import {
   Lock,
   Unlock,
   CheckCircle2,
-  Clock,
-  Send,
   ExternalLink,
   ShieldCheck,
-  AlertTriangle,
   Upload,
   Coins,
 } from "lucide-react";
@@ -97,72 +94,72 @@ export function EscrowVaultTab({
   };
 
   return (
-    <div className="space-y-8">
-      {/* Financial Telemetry Banner */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="rounded-xl border border-lexi-border bg-lexi-card p-5 shadow-docket">
-          <div className="flex items-center justify-between text-xs font-mono text-lexi-parchmentMuted">
-            <span>Total Escrow Value</span>
-            <Coins className="w-4 h-4 text-lexi-gold" />
+    <div className="space-y-6 sm:space-y-8">
+      {/* Financial Telemetry Banner (2 cols on mobile, 4 on desktop) */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
+        <div className="rounded-xl border border-lexi-border bg-lexi-card p-3.5 sm:p-5 shadow-docket">
+          <div className="flex items-center justify-between text-[11px] sm:text-xs font-mono text-lexi-parchmentMuted">
+            <span className="truncate">Total Vault</span>
+            <Coins className="w-3.5 h-3.5 text-lexi-gold shrink-0" />
           </div>
-          <div className="mt-2 text-2xl font-mono font-bold text-white">
+          <div className="mt-1.5 sm:mt-2 text-lg sm:text-2xl font-mono font-bold text-white">
             {formatEth(totalEth)}
           </div>
-          <p className="text-[11px] font-mono text-lexi-parchmentMuted mt-1">
-            Contract: {shortenAddress(LEXIPACT_CONTRACT_ADDRESS)}
+          <p className="text-[9px] sm:text-[11px] font-mono text-lexi-parchmentMuted mt-0.5 truncate">
+            {shortenAddress(LEXIPACT_CONTRACT_ADDRESS)}
           </p>
         </div>
 
-        <div className="rounded-xl border border-lexi-border bg-lexi-card p-5 shadow-docket">
-          <div className="flex items-center justify-between text-xs font-mono text-lexi-parchmentMuted">
-            <span>Locked in Vault</span>
-            <Lock className="w-4 h-4 text-lexi-emerald" />
+        <div className="rounded-xl border border-lexi-border bg-lexi-card p-3.5 sm:p-5 shadow-docket">
+          <div className="flex items-center justify-between text-[11px] sm:text-xs font-mono text-lexi-parchmentMuted">
+            <span className="truncate">Locked</span>
+            <Lock className="w-3.5 h-3.5 text-lexi-emerald shrink-0" />
           </div>
-          <div className="mt-2 text-2xl font-mono font-bold text-lexi-emerald">
+          <div className="mt-1.5 sm:mt-2 text-lg sm:text-2xl font-mono font-bold text-lexi-emerald">
             {formatEth(lockedEth)}
           </div>
-          <p className="text-[11px] font-mono text-lexi-parchmentMuted mt-1">
-            {escrowFunded ? "Secured on Base Sepolia" : "Pending Client Deposit"}
+          <p className="text-[9px] sm:text-[11px] font-mono text-lexi-parchmentMuted mt-0.5 truncate">
+            {escrowFunded ? "Base Sepolia" : "Pending"}
           </p>
         </div>
 
-        <div className="rounded-xl border border-lexi-border bg-lexi-card p-5 shadow-docket">
-          <div className="flex items-center justify-between text-xs font-mono text-lexi-parchmentMuted">
-            <span>Disbursed Payouts</span>
-            <Unlock className="w-4 h-4 text-lexi-goldLight" />
+        <div className="rounded-xl border border-lexi-border bg-lexi-card p-3.5 sm:p-5 shadow-docket">
+          <div className="flex items-center justify-between text-[11px] sm:text-xs font-mono text-lexi-parchmentMuted">
+            <span className="truncate">Disbursed</span>
+            <Unlock className="w-3.5 h-3.5 text-lexi-goldLight shrink-0" />
           </div>
-          <div className="mt-2 text-2xl font-mono font-bold text-lexi-goldLight">
+          <div className="mt-1.5 sm:mt-2 text-lg sm:text-2xl font-mono font-bold text-lexi-goldLight">
             {formatEth(releasedEth)}
           </div>
-          <p className="text-[11px] font-mono text-lexi-parchmentMuted mt-1">
-            Paid to: {shortenAddress(pact.contractor)}
+          <p className="text-[9px] sm:text-[11px] font-mono text-lexi-parchmentMuted mt-0.5 truncate">
+            To: {shortenAddress(pact.contractor)}
           </p>
         </div>
 
-        <div className="rounded-xl border border-lexi-border bg-lexi-card p-5 shadow-docket flex flex-col justify-between">
-          <div className="flex items-center justify-between text-xs font-mono text-lexi-parchmentMuted">
-            <span>Vault State</span>
+        <div className="col-span-2 lg:col-span-1 rounded-xl border border-lexi-border bg-lexi-card p-3.5 sm:p-5 shadow-docket flex flex-col justify-between">
+          <div className="flex items-center justify-between text-[11px] sm:text-xs font-mono text-lexi-parchmentMuted">
+            <span>Vault Status</span>
             <span className="w-2 h-2 rounded-full bg-lexi-emerald animate-pulse" />
           </div>
-          <div className="my-2">
+          <div className="my-1.5 sm:my-2">
             {!escrowFunded ? (
               <button
                 onClick={handleFund}
                 disabled={isFunding}
-                className="w-full py-2 px-3 rounded-lg bg-lexi-gold text-lexi-bg font-bold font-mono text-xs uppercase tracking-wider hover:bg-lexi-goldHover transition-all flex items-center justify-center gap-1.5"
+                className="w-full min-h-[38px] py-2 px-3 rounded-lg bg-lexi-gold text-lexi-bg font-bold font-mono text-[11px] sm:text-xs uppercase tracking-wider hover:bg-lexi-goldHover transition-all flex items-center justify-center gap-1.5"
               >
                 <Lock className="w-3.5 h-3.5" />
                 <span>{isFunding ? "Depositing..." : "Deposit & Fund Vault"}</span>
               </button>
             ) : (
-              <div className="text-sm font-mono font-bold text-lexi-emerald flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4" />
+              <div className="text-xs sm:text-sm font-mono font-bold text-lexi-emerald flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4 shrink-0" />
                 <span>Escrow Fully Secured</span>
               </div>
             )}
           </div>
-          <p className="text-[10px] font-mono text-lexi-parchmentMuted">
-            Non-custodial Base Sepolia smart contract
+          <p className="text-[9px] sm:text-[10px] font-mono text-lexi-parchmentMuted">
+            Base Sepolia non-custodial
           </p>
         </div>
       </div>
@@ -170,11 +167,11 @@ export function EscrowVaultTab({
       {/* Milestone Escrow Ledger */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="font-serif text-lg font-bold text-white">
-            Milestone Escrow Ledger & Execution Gates
+          <h3 className="font-serif text-base sm:text-lg font-bold text-white">
+            Milestone Escrow Ledger
           </h3>
-          <span className="text-xs font-mono text-lexi-parchmentMuted">
-            {milestones.length} Contractual Stages
+          <span className="text-[11px] sm:text-xs font-mono text-lexi-parchmentMuted">
+            {milestones.length} Stages
           </span>
         </div>
 
@@ -188,22 +185,24 @@ export function EscrowVaultTab({
             return (
               <div
                 key={m.id}
-                className="rounded-xl border border-lexi-border bg-lexi-card p-6 shadow-docket space-y-4 transition-all"
+                className="rounded-xl border border-lexi-border bg-lexi-card p-4 sm:p-6 shadow-docket space-y-3 sm:space-y-4 transition-all"
               >
-                <div className="flex flex-wrap items-center justify-between gap-3 border-b border-lexi-border/60 pb-3">
-                  <div className="flex items-center gap-2.5">
-                    <span className="w-6 h-6 rounded bg-lexi-bg border border-lexi-border text-lexi-goldLight font-mono text-xs font-bold flex items-center justify-center">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-lexi-border/60 pb-3">
+                  <div className="flex items-center gap-2">
+                    <span className="w-5 h-5 sm:w-6 sm:h-6 shrink-0 rounded bg-lexi-bg border border-lexi-border text-lexi-goldLight font-mono text-xs font-bold flex items-center justify-center">
                       {index + 1}
                     </span>
-                    <h4 className="font-mono text-sm font-bold text-white">{m.title}</h4>
+                    <h4 className="font-mono text-xs sm:text-sm font-bold text-white">
+                      {m.title}
+                    </h4>
                   </div>
 
-                  <div className="flex items-center gap-3">
-                    <span className="font-mono text-sm font-bold text-lexi-goldLight">
+                  <div className="flex items-center justify-between sm:justify-end gap-3 self-stretch sm:self-auto pt-1 sm:pt-0">
+                    <span className="font-mono text-xs sm:text-sm font-bold text-lexi-goldLight">
                       {formatEth(m.amountEth)}
                     </span>
                     <span
-                      className={`text-[11px] font-mono uppercase font-bold px-2.5 py-0.5 rounded border ${
+                      className={`text-[10px] sm:text-[11px] font-mono uppercase font-bold px-2 sm:px-2.5 py-0.5 rounded border ${
                         isReleased
                           ? "bg-lexi-emeraldMuted text-lexi-emerald border-lexi-emerald/50"
                           : isVerified
@@ -224,31 +223,31 @@ export function EscrowVaultTab({
 
                 {/* Deliverable info or submission input */}
                 {m.deliverableRef ? (
-                  <div className="p-3 rounded-lg bg-lexi-bg border border-lexi-border/70 flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
-                    <div className="flex items-center gap-2 text-lexi-parchment">
-                      <span className="text-lexi-parchmentMuted">Deliverable Artifact:</span>
+                  <div className="p-3 rounded-lg bg-lexi-bg border border-lexi-border/70 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono">
+                    <div className="flex flex-wrap items-center gap-1.5 text-lexi-parchment">
+                      <span className="text-lexi-parchmentMuted text-[11px]">Artifact:</span>
                       <a
                         href={m.deliverableRef}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-lexi-blue hover:underline flex items-center gap-1"
+                        className="text-lexi-blue hover:underline flex items-center gap-1 text-[11px] break-all"
                       >
-                        <span className="break-all">{m.deliverableRef}</span>
-                        <ExternalLink className="w-3 h-3" />
+                        <span>{m.deliverableRef}</span>
+                        <ExternalLink className="w-3 h-3 shrink-0" />
                       </a>
                     </div>
                     {m.complianceScore && (
-                      <span className="px-2 py-0.5 rounded bg-lexi-emeraldMuted border border-lexi-emerald/40 text-lexi-emerald font-bold">
-                        AI Score: {m.complianceScore}/100
+                      <span className="self-start sm:self-auto px-2 py-0.5 rounded bg-lexi-emeraldMuted border border-lexi-emerald/40 text-lexi-emerald text-[11px] font-bold">
+                        AI: {m.complianceScore}/100
                       </span>
                     )}
                   </div>
                 ) : (
                   <div className="p-3 rounded-lg bg-lexi-bg border border-lexi-border/70 space-y-2">
-                    <label className="text-[11px] font-mono text-lexi-parchmentMuted block">
+                    <label className="text-[10px] sm:text-[11px] font-mono text-lexi-parchmentMuted block">
                       Submit Deliverable Artifact (GitHub commit, IPFS CID, or live URL):
                     </label>
-                    <div className="flex gap-2">
+                    <div className="flex flex-col sm:flex-row gap-2">
                       <input
                         type="text"
                         placeholder="https://github.com/..."
@@ -256,14 +255,14 @@ export function EscrowVaultTab({
                         onChange={(e) =>
                           setDeliverableInput({ ...deliverableInput, [m.id]: e.target.value })
                         }
-                        className="flex-1 bg-lexi-card border border-lexi-border rounded px-3 py-1.5 text-xs font-mono text-white placeholder-lexi-parchmentMuted/50 focus:outline-none focus:border-lexi-gold"
+                        className="flex-1 bg-lexi-card border border-lexi-border rounded px-3 py-2 text-xs font-mono text-white placeholder-lexi-parchmentMuted/50 focus:outline-none focus:border-lexi-gold min-h-[40px]"
                       />
                       <button
                         onClick={() => handleSubmit(m.id)}
                         disabled={submittingId === m.id || !deliverableInput[m.id]}
-                        className="px-3 py-1.5 rounded bg-lexi-gold hover:bg-lexi-goldHover text-lexi-bg font-mono font-bold text-xs uppercase disabled:opacity-50 transition-colors flex items-center gap-1"
+                        className="px-4 py-2 rounded bg-lexi-gold hover:bg-lexi-goldHover text-lexi-bg font-mono font-bold text-xs uppercase disabled:opacity-50 transition-colors flex items-center justify-center gap-1.5 min-h-[40px]"
                       >
-                        <Upload className="w-3 h-3" />
+                        <Upload className="w-3.5 h-3.5" />
                         <span>Submit</span>
                       </button>
                     </div>
@@ -271,25 +270,27 @@ export function EscrowVaultTab({
                 )}
 
                 {/* Milestone action footer */}
-                <div className="pt-2 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
-                  {m.txHash && (
+                <div className="pt-1 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs font-mono">
+                  {m.txHash ? (
                     <a
                       href={`https://sepolia.basescan.org/tx/${m.txHash}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-lexi-parchmentMuted hover:text-lexi-gold flex items-center gap-1"
+                      className="text-lexi-parchmentMuted hover:text-lexi-gold flex items-center gap-1 text-[11px]"
                     >
                       <span>Tx: {shortenAddress(m.txHash)}</span>
                       <ExternalLink className="w-3 h-3" />
                     </a>
+                  ) : (
+                    <span />
                   )}
 
-                  <div className="ml-auto flex items-center gap-2">
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                     {/* If submitted but not verified: link to AI Watcher */}
                     {isSubmitted && (
                       <button
                         onClick={onNavigateToAiWatcher}
-                        className="px-3 py-1.5 rounded border border-blue-500/50 bg-blue-900/20 text-blue-400 hover:bg-blue-900/40 transition-colors flex items-center gap-1"
+                        className="w-full sm:w-auto px-3 py-2 rounded border border-blue-500/50 bg-blue-900/20 text-blue-400 hover:bg-blue-900/40 transition-colors flex items-center justify-center gap-1.5 min-h-[40px]"
                       >
                         <ShieldCheck className="w-3.5 h-3.5" />
                         <span>Run AI Compliance Audit</span>
@@ -301,7 +302,7 @@ export function EscrowVaultTab({
                       <button
                         onClick={() => handleRelease(m.id)}
                         disabled={releasingId === m.id || !escrowFunded}
-                        className="px-4 py-1.5 rounded bg-lexi-emerald hover:bg-emerald-600 text-lexi-bg font-bold uppercase transition-all shadow-verified flex items-center gap-1.5"
+                        className="w-full sm:w-auto px-4 py-2 rounded bg-lexi-emerald hover:bg-emerald-600 text-lexi-bg font-bold uppercase transition-all shadow-verified flex items-center justify-center gap-1.5 min-h-[40px]"
                       >
                         <Unlock className="w-3.5 h-3.5" />
                         <span>
@@ -311,10 +312,10 @@ export function EscrowVaultTab({
                     )}
 
                     {isReleased && (
-                      <span className="flex items-center gap-1.5 text-lexi-emerald font-bold">
-                        <CheckCircle2 className="w-4 h-4" />
+                      <div className="flex items-center justify-center sm:justify-start gap-1.5 text-lexi-emerald font-bold text-xs py-1">
+                        <CheckCircle2 className="w-4 h-4 shrink-0" />
                         <span>Capital Disbursed On-Chain</span>
-                      </span>
+                      </div>
                     )}
                   </div>
                 </div>
